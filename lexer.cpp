@@ -12,6 +12,7 @@ enum token {
   // primary
     tok_identifier = -4,
     tok_number = -5,
+    tok_keyword = -6
 };
 
 static string IdentifierStr;
@@ -31,6 +32,9 @@ static int gettok(){
         }
         if(IdentifierStr == "return"){
             return tok_return;
+        }
+        if(IdentifierStr == "int" || IdentifierStr == "double"){
+            return tok_keyword;
         }
         return tok_identifier;
     }
@@ -62,7 +66,7 @@ static int gettok(){
 
 int main(){
    int tok;
-   while((tok = gettok()) != tok_eof){
-    cout<<"Token: "<< tok << endl;
+   while((tok = gettok()) != EOF){
+    cout << "Token value: " << tok << endl;
    }
 }
