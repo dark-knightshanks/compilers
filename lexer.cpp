@@ -7,12 +7,13 @@ using namespace std;
 
 enum token {
     tok_eof = -1,
-    tok_def = -2,
-    tok_return = -3,
+    tok_return = -2,
   // primary
-    tok_identifier = -4,
-    tok_number = -5,
-    tok_keyword = -6
+    tok_identifier = -3,
+    tok_number = -4,
+    tok_keyword = -5,
+    tok_main = -6,
+    
 };
 
 static string IdentifierStr;
@@ -27,13 +28,13 @@ static int gettok(){
         while(isalnum(LastChar = getchar())){
             IdentifierStr += LastChar;
         }
-        if(IdentifierStr == "def"){
-            return tok_def;
-        }
         if(IdentifierStr == "return"){
             return tok_return;
         }
-        if(IdentifierStr == "int" || IdentifierStr == "double"){
+        if(IdentifierStr == "main"){
+            return tok_main;
+        }
+        if(IdentifierStr == "int" || IdentifierStr == "double" || IdentifierStr == "char"){
             return tok_keyword;
         }
         return tok_identifier;
@@ -47,7 +48,7 @@ static int gettok(){
         NumValue = strtod(NumStr.c_str(),0);
         return tok_number;
     }
-    if(LastChar == '#'){ // read charcters until we are not on a new line 
+    if(LastChar == '//'){ // read charcters until we are not on a new line 
         do{
             LastChar = getchar();
         }while(LastChar != EOF && LastChar != '\n' && LastChar != '\r');
